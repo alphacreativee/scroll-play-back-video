@@ -1,4 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const loadStartTime = performance.now();
+  let minDuration = 2; // Minimum animation time
+  let maxDuration = 6; // Maximum animation time
+
+  // Monitor loading progress
+  const checkLoadingProgress = setInterval(() => {
+    if (document.readyState === "complete") {
+      clearInterval(checkLoadingProgress);
+
+      const loadTime = (performance.now() - loadStartTime) / 1000;
+
+      // Calculate duration based on load time
+      let duration;
+      if (loadTime < 1) {
+        duration = minDuration; // Fast load = short animation
+      } else if (loadTime > 5) {
+        duration = maxDuration; // Slow load = longer animation
+      } else {
+        duration =
+          minDuration + ((loadTime - 1) / 4) * (maxDuration - minDuration);
+      }
+
+      console.log(
+        `Load time: ${loadTime.toFixed(
+          2
+        )}s, Animation duration: ${duration.toFixed(2)}s`
+      );
+
+      const tl = gsap.timeline({
+        defaults: { duration: duration, ease: "power2.inOut" },
+      });
+
+      tl.fromTo(
+        ".loading",
+        { clipPath: "inset(0% 0% 0% 0%)" },
+        {
+          clipPath: "inset(0% 0% 100% 0%)",
+          onComplete: () => {
+            document.querySelector(".loading").classList.add("d-none");
+          },
+        }
+      );
+    }
+  }, 100);
+});
+document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
   const lenis = new Lenis();
 
