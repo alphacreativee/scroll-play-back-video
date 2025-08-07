@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const frameCount = 280;
   const currentFrame = (index) =>
-    `/assets/images/frame_img/frame_${(index + 1).toString()}.jpg`;
+    `./assets/images/frame_img/frame_${(index + 1).toString()}.jpg`;
 
   let images = [];
   let videoFrames = { frame: 0 };
