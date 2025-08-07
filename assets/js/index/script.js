@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const loadStartTime = performance.now();
-  let minDuration = 2; // Minimum animation time
-  let maxDuration = 6; // Maximum animation time
+  let minDuration = 1; // Minimum animation time
+  let maxDuration = 2; // Maximum animation time
 
   // Monitor loading progress
   const checkLoadingProgress = setInterval(() => {
